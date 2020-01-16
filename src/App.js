@@ -1,25 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Fragment } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import './App.css';
+import NavBar from './components/layouts/Navbar'
+import UserList from './components/users/UserList'
+import Search from './components/users/Search'
+import About from './components/pages/About'
 
-function App() {
+import GithubState from './context/github/GithubState'
+
+const App = () => {
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <GithubState>
+      <Router>
+        <div className="App">
+          <div className="container">
+            <NavBar title="Github Finder" />
+            <Switch>
+              <Route exact path="/" render={() => (
+                <Fragment>
+                  <Search />
+                  <UserList />
+                </Fragment>
+              )} />
+              <Route exact path='/about' component={About} />
+            </Switch>
+          </div>
+        </div>
+      </Router>
+    </GithubState>
   );
 }
 
